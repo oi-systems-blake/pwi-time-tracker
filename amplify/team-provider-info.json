@@ -13,7 +13,20 @@
     },
     "categories": {
       "auth": {
-        "pwitimetracker02e0290e": {}
+        "pwitimetracker02e0290e": {},
+        "pwitimetracker": {
+          "userPoolId": "us-east-2_UitX0L9yX",
+          "userPoolName": "tt186ed23dd_userpool_86ed23dd-dev",
+          "webClientId": "6s3v5vv8b20t7stgqh7s869na",
+          "nativeClientId": "6s3v5vv8b20t7stgqh7s869na",
+          "identityPoolId": "us-east-2:41966ccd-3839-4e08-a176-809d65eda83b",
+          "identityPoolName": "tt186ed23dd_identitypool_86ed23dd__dev",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::162044473277:role/amplify-tt1-dev-92347-authRole",
+          "authRoleName": "amplify-tt1-dev-92347-authRole",
+          "unauthRoleArn": "arn:aws:iam::162044473277:role/amplify-tt1-dev-92347-unauthRole",
+          "unauthRoleName": "amplify-tt1-dev-92347-unauthRole"
+        }
       },
       "api": {
         "pwitimetracker": {}

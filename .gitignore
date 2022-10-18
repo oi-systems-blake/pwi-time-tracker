@@ -22,10 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-airTable
-Base.js
-Fetch.js
-AdminProject.js
+Secret.js
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

@@ -23,29 +23,18 @@ let EMPLOYEE1 = {
 };
 
 export function ClockIn() {
-  const navigate = useNavigate();
 
-  const { signOut, authStatus } = useAuthenticator((context) => [context.user]);
-
- 
-  function logOut() {
-    signOut();
-    navigate("/");
-  }
-  console.log(authStatus);
   return (
     <div className="clock page">
       <div className="clock-container">
         <TimeClock /> 
         <ClockInInput />
-        <Base />
-        <Fetch/>
       </div>
       <div className="admin-path-button">
       <Link to="/admin">
         <button variant="outline-warning">Admin Path</button>
       </Link>
-      <button variant="outline-warning" onClick={logOut}>
+      <button variant="outline-warning" onClick={console.log("fix me")}>
         Sign Out
       </button>
     </div>
