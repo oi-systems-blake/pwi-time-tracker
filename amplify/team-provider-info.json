@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pwitimetracker-dev-80148-authRole",
+      "UnauthRoleArn": "arn:aws:iam::162044473277:role/amplify-pwitimetracker-dev-80148-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::162044473277:role/amplify-pwitimetracker-dev-80148-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-pwitimetracker-dev-80148-deployment",
+      "UnauthRoleName": "amplify-pwitimetracker-dev-80148-unauthRole",
+      "StackName": "amplify-pwitimetracker-dev-80148",
+      "StackId": "arn:aws:cloudformation:us-east-2:162044473277:stack/amplify-pwitimetracker-dev-80148/dd349e10-4e1b-11ed-a55a-022641f03a86",
+      "AmplifyAppId": "d2nj2g3plnxnqg"
+    },
+    "categories": {
+      "auth": {
+        "pwitimetracker02e0290e": {}
+      },
+      "api": {
+        "pwitimetracker": {}
+      }
+    }
+  }
+}
