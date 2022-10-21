@@ -14,7 +14,7 @@ function EmpQuery() {
       try {
             const empData = await API.graphql(graphqlOperation(listEmployees));
             const empList = empData.data.listEmployees.items;
-            console.log('employee list', empList);
+            console.log('EmpQuery', empList);
             setEmps(empList)
           } catch (error){
               console.log('error on Fetching Emps', error);

@@ -18,49 +18,15 @@ export function ViewTimesheet() {
     },
     {
       month: "May",
-      dayNumber: 2,
-      dayName: "Tuesday",
+      dayNumber: 1,
+      dayName: "Monday",
       hours: [
-        ["9:00:00", "13:00:00"],
-        ["14:00:00", "18:00:00"],
+        ["8:00:00", "12:00:00"],
+        ["13:00:00", "17:00:00"],
       ],
     },
-    {
-      month: "May",
-      dayNumber: 2,
-      dayName: "Tuesday",
-      hours: [
-        ["9:00:00", "13:00:00"],
-        ["14:00:00", "18:00:00"],
-      ],
-    },
-    {
-      month: "May",
-      dayNumber: 2,
-      dayName: "Tuesday",
-      hours: [
-        ["9:00:00", "13:00:00"],
-        ["14:00:00", "18:00:00"],
-      ],
-    },
-    {
-      month: "May",
-      dayNumber: 2,
-      dayName: "Tuesday",
-      hours: [
-        ["9:00:00", "13:00:00"],
-        ["14:00:00", "18:00:00"],
-      ],
-    },
-    {
-      month: "May",
-      dayNumber: 2,
-      dayName: "Tuesday",
-      hours: [
-        ["9:00:00", "13:00:00"],
-        ["14:00:00", "18:00:00"],
-      ],
-    },
+
+
     
   ];
 

@@ -1,6 +1,43 @@
 import "./Css/AdminEmp.style.css"
+import {secure} from "../../Secret"
+import Employee from "./Css/components/Employee";
+import { useState, useEffect } from "react";
 
 export function AdminEmp() {
+
+  let [emps, setEmps] = useState([]);
+  var Airtable = require("airtable");
+  var base = new Airtable({ apiKey: secure }).base(
+    "appqrmdFurNYpsDKm"
+  );
+  useEffect(() => {
+console.log()
+    base("Employees")
+      .select({
+        // Selecting the first 3 records in Brandon's Jobs:
+        maxRecords: 30,
+        view: "Active Employees",
+      })
+      .eachPage(
+        function page(records, fetchNextPage) {
+          // This function (`page`) will get called for each page of records.
+
+          setEmps(records)
+          console.log(records)
+          // To fetch the next page of records, call `fetchNextPage`.
+          // If there are more records, `page` will get called again.
+          // If there are no more records, `done` will get called.
+          fetchNextPage();
+        },
+        function done(err) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        }
+      );
+  }, []);
+
   return (
     <>
       <div className="emp-page">
@@ -12,214 +49,18 @@ export function AdminEmp() {
               <div className="emp-row-hours header">Hours</div>
             </div>
           </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">Joel Foster
-              </div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">John Doe</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">Fran Stalinovskovichdavidovitchsky</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">999h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">M.C. Hammer</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">Jane Doe</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">Phil Herupal</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">Blake Everett Swearingen</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
-          <div className="emp-row">
-            <div className="emp-row-left">
-              <div className="emp-row-emp-name">George Washington</div>
-            </div>
-            <div className="emp-row-right">
-              <div className="emp-row-status"><button className="emp-row-clock-button" type="button">Clock In</button>Clocked Out</div>
-              <div className="emp-row-hours">32h12m</div>
-            </div>
-          </div>
+          {emps.map(emp => (
+            <Employee
+            key={emp.id}
+            emp={emp}
+            />
+          ))}
+
+
+
+
+
+
           
         </div>
       </div>

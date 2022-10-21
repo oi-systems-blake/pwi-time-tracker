@@ -1,24 +1,41 @@
 import React from "react";
 import Airtable, { Table } from "airtable";
 import { useState, useEffect } from "react";
-import {secure} from "../Secret"
-
+import { secure } from "../Secret";
+import { getEmployee } from "../graphql/queries";
+import Amplify, { API, graphqlOperation } from "aws-amplify";
 
 export default function Fetch({ callback, pin }) {
   var Airtable = require("airtable");
-  var base = new Airtable({ apiKey: secure }).base(
-    "appqrmdFurNYpsDKm"
-  );
+  var base = new Airtable({ apiKey: secure }).base("appqrmdFurNYpsDKm");
+  let table = base("Employees");
 
   const [employees, setEmployees] = useState([]);
-  
+  const [emps, setEmps] = useState([]);
+  const [ampEmps, setAmpEmps] = useState([]);
+
+  const fetchEmployees = async (x) => {
+    try {
+      const empData = await API.graphql(
+        graphqlOperation(getEmployee, { id: x })
+      );
+      const empList = empData.data.getEmployee;
+      console.log("employee list", empList);
+      setAmpEmps(empList);
+    } catch (error) {
+      console.log("error on Fetching Emps", error);
+    }
+  };
   useEffect(() => {
-    console.log("this ran.", pin)
-    if((pin + "").length < 4){return}
+    console.log( fetchEmployees(pin));
+
+    if ((pin + "").length < 4) {
+      return;
+    }
     base("Employees")
       .select({
         view: "Active Employees",
-        filterByFormula: "({pin} = '"+pin+"')",
+        filterByFormula: "({pin} = '" + pin + "')",
       })
       .eachPage(
         function page(records, fetchNextPage) {

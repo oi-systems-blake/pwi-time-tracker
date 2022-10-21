@@ -1,14 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import ClockInModal from "../Modals/ClockInModal";
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
-import { useEffect } from 'react';
-import {listEmployees} from '../../../graphql/queries'
-import ClockInTimesheetButton from './ClockInTimesheetButton'
+import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function ClockInInput() {
   const [clockInButtonPopup, setClockInButtonPopup] = useState(false);
-  const [currentUserId, setCurrentUserId] = useState("");
+  const [pin, setPin] = useState("");
 
   function ClockInFunction() {
     setClockInButtonPopup(true);
@@ -18,7 +17,7 @@ export default function ClockInInput() {
   }
 
   const handleChange = (event) => {
-    setCurrentUserId(event.target.value);
+    setPin(event.target.value);
   };
 
   return (
@@ -29,7 +28,7 @@ export default function ClockInInput() {
           type="password"
           placeholder="Enter 4 Digit Pin"
           onChange={handleChange}
-          value={currentUserId}
+          value={pin}
         ></input>
       </div>
       <div className="clock-clock-button">
@@ -40,9 +39,15 @@ export default function ClockInInput() {
         >
           Clock In/Out
         </button>
-        <ClockInTimesheetButton />
+        <div className="clock-timesheet-button">
+        <Link to="/viewtimesheet/:1245">
+          <button id="clock-timesheet-button-specific" variant="warning">
+            View Timesheet
+          </button>
+        </Link>
+      </div>
         <ClockInModal
-        currentUserId={currentUserId}
+          pin={pin}
           trigger={clockInButtonPopup}
           setTrigger={setClockInButtonPopup}
         />

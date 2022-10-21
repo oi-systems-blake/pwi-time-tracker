@@ -1,49 +1,86 @@
 import React from "react";
 import TimeClock from "../pages/ClockInPage/Components/TimeClock";
 import { useState } from "react";
-//import Base from "../airTable/Base";
 import Fetch from "../airTable/Fetch";
-
-const TIMESHEET1 = [
-  {
-    id: 1234,
-    month: "May",
-    dayNumber: 1,
-    dayName: "Monday",
-    hours: [
-      ["8:00", "12:00"],
-      ["13:00", "17:00"],
-    ],
-  },
-];
+import EmpQuery from "../graphql/custom/EmpQuery";
+import { API, graphqlOperation } from "aws-amplify";
 
 export default function TestClock() {
+  
+  
+  
+  
+  
+  
+  
   const [pin, setPin] = useState("");
+  const eventDetails = {
+    id: "6969",
+    month: "May",
+    year: "2022",
+    dayNumber: 5,
+    dayName: "mon",
+    employeeID: "1234",
+    projectsID: "6868",
+  };
 
   const handleChange = (event) => {
     setPin(event.target.value);
+    console.log("pin is", pin);
   };
   const callThisFromChild = (pin) => {
-    console.log(`child passed in ${pin}`);
+    console.log("child passed in", pin);
     return pin;
   };
 
-  function TimeStamp() {
+  async function TimeStamp() {
+    const createTimeSheet = /* GraphQL */ `
+  mutation CreateTimeSheet(
+    $input: CreateTimeSheetInput!
+    $condition: ModelTimeSheetConditionInput
+  ) {
+    createTimeSheet(input: $input, condition: $condition) {
+      id
+      month
+      year
+      dayNumber
+      dayName
+      hours
+      total_hours_day
+      employeeID
+      projectsID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+    
+    
+    
     let x = new Date();
     let y = x.toLocaleTimeString();
-    console.log("y is ", y);
+    console.log("y is ", x);
 
+
+
+    const newProj = await API.graphql(
+      graphqlOperation(createTimeSheet, { input: eventDetails })
+    );
+    console.log(newProj);
     return y;
   }
 
   return (
-    <div>
-      <TimeClock />
-      <Fetch pin={pin} callback={callThisFromChild} />
-      <button onClick={TimeStamp}>clock in</button>
-      <input type="text" value={pin} onChange={handleChange}></input>
+    <>
+      <EmpQuery />
+      <div>
+        <TimeClock />
+        <Fetch pin={pin} callback={callThisFromChild} />
+        <button onClick={TimeStamp}>clock in</button>
+        <input type="text" value={pin} onChange={handleChange}></input>
 
-      <h1>{pin}</h1>
-    </div>
+        <h1>{pin}</h1>
+      </div>
+    </>
   );
 }
