@@ -71,20 +71,23 @@ export function ClockIn() {
       return;
     }
     const x = await empExists();
-    await setEmployees(x["Preferred Name"]);
+   try {await setEmployees(x["Preferred Name"]);} catch (error) {
+    setErrorTrigger(true);
+    setTimeout(() => {
+      setErrorTrigger(false);
+    }, 2500);
+  }
     console.log("employees = ", employees);
     console.log("x is", x);
-
-    const currentName = x["Preferred Name"];
-
-    console.log("preffererd name is", currentName);
-
     if (x != 0) {
       setSuccessTrigger(true);
       setTimeout(() => {
         setSuccessTrigger(false);
       }, 2500);
-      return setEmployees(""), setPin("");
+      return setTimeout(() => {
+        setEmployees("");
+        setPin("");
+      }, 2500);
     } else {
       console.log("shes empty");
       setErrorTrigger(true);
@@ -128,7 +131,7 @@ export function ClockIn() {
             </Link>
           </div>
           <ClockInModal
-            name={pin}
+            name={employees}
             trigger={successTrigger}
             setTrigger={setSuccessTrigger}
           />
