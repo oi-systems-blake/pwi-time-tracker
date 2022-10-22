@@ -13,72 +13,70 @@ import { set } from "date-fns";
 export function ClockIn() {
   let [clockInButtonPopup, setClockInButtonPopup] = useState(false);
   let [pin, setPin] = useState("");
-  let [employees, setEmployees] = useState("");
+  let [employees, setEmployees] = useState("0");
   let [trigger, setTrigger] = useState(false);
 
   let Airtable = require("airtable");
   let base = new Airtable({ apiKey: secure }).base("appqrmdFurNYpsDKm");
   let table = base("Employees");
 
-
-
-
-   function empExists() {
-    base("Employees")
-      .select({ 
+  async function empExists() {
+    const records = await base("Employees")
+      .select({
         view: "Active Employees",
         filterByFormula: "({pin} = '" + pin + "')",
       })
-      .eachPage(
-          function page(records, fetchNextPage) {
-          // This function (`page`) will get called for each page of records.
+      .all();
+    console.log("disn", records);
+    return records;
+    // .eachPage(
+    //     function page(records, fetchNextPage) {
+    //     // This function (`page`) will get called for each page of records.
 
-          // records.forEach(function (record) {
-          //   console.log("Retrieved", record.get("Preferred Name"));
-          // });
-          // console.log("does this have the pin:", pin);
-          // To fetch the next page of records, call `fetchNextPage`.
-          // If there are more records, `page` will get called again.
-          // If there are no more records, `done` will get called.
-          fetchNextPage();
-          console.log(records);
-          setEmployees(records)
-        },
-        function done(err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        }
-      ); 
+    //     // records.forEach(function (record) {
+    //     //   console.log("Retrieved", record.get("Preferred Name"));
+    //     // });
+    //     // console.log("does this have the pin:", pin);
+    //     // To fetch the next page of records, call `fetchNextPage`.
+    //     // If there are more records, `page` will get called again.
+    //     // If there are no more records, `done` will get called.
+    //     fetchNextPage();
+    //     console.log(records);
+    //     setEmployees(records)
+    //   },
+    //   function done(err) {
+    //     if (err) {
+    //       console.error(err);
+    //       return;
+    //     }
+    //   }
+    // );
   }
 
-async function ClockInFunction() {
+  const ClockInFunction = async () => {
     if ((pin + "").length != 4) {
       return;
     }
-  await empExists()
-    
-    console.log("imda func", employees);
-    if ( employees.length > 0) {
-      console.log("shes not empty");
-
+    const x = await empExists();
+    await setEmployees(x);
+    console.log("employees = ", employees);
+    console.log("x is", x);;
+    if (x != 0) {
       setClockInButtonPopup(true);
       setTimeout(() => {
         setClockInButtonPopup(false);
       }, 2500);
       return setEmployees(""), setPin("");
-    } else {
-      console.log("shes empty");
-      setTrigger(true);
-      setTimeout(() => {
-        setTrigger(false);
-      }, 2500);
-      return setEmployees(""), setPin("");
-    }
-
-    // console.log("also value for employees", employees)
-  }
+    } 
+    else {
+        console.log("shes empty");
+        setTrigger(true);
+        setTimeout(() => {
+          setTrigger(false);
+        }, 2500);
+        return setEmployees(""), setPin("");
+      }
+  };
 
   const handleChange = (event) => {
     setPin(event.target.value);
