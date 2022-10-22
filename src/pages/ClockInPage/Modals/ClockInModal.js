@@ -14,7 +14,7 @@ function ClockInModal(props) {
         {props.children}
         <h4 className="modal-text">You've Clocked in At:</h4><br/>
         <h1 className="modal-time" >{n}</h1>
-        <h1 className="pinner">{props.pin}</h1>
+        <h1 className="pinner">{props.name}</h1>
         </div>
       </div>
     </div>

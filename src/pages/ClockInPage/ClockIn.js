@@ -11,10 +11,10 @@ import { secure } from "../../Secret";
 import { set } from "date-fns";
 
 export function ClockIn() {
-  let [clockInButtonPopup, setClockInButtonPopup] = useState(false);
+  let [successTrigger, setSuccessTrigger] = useState(false);
   let [pin, setPin] = useState("");
   let [employees, setEmployees] = useState("0");
-  let [trigger, setTrigger] = useState(false);
+  let [errorTrigger, setErrorTrigger] = useState(false);
 
   let Airtable = require("airtable");
   let base = new Airtable({ apiKey: secure }).base("appqrmdFurNYpsDKm");
@@ -28,7 +28,20 @@ export function ClockIn() {
       })
       .all();
     console.log("disn", records);
-    return records;
+    function done(err) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    }
+    try {
+      return records[0].fields;
+    } catch (error) {
+      setErrorTrigger(true);
+      setTimeout(() => {
+        setErrorTrigger(false);
+      }, 2500);
+    }
     // .eachPage(
     //     function page(records, fetchNextPage) {
     //     // This function (`page`) will get called for each page of records.
@@ -58,24 +71,28 @@ export function ClockIn() {
       return;
     }
     const x = await empExists();
-    await setEmployees(x);
+    await setEmployees(x["Preferred Name"]);
     console.log("employees = ", employees);
-    console.log("x is", x);;
+    console.log("x is", x);
+
+    const currentName = x["Preferred Name"];
+
+    console.log("preffererd name is", currentName);
+
     if (x != 0) {
-      setClockInButtonPopup(true);
+      setSuccessTrigger(true);
       setTimeout(() => {
-        setClockInButtonPopup(false);
+        setSuccessTrigger(false);
       }, 2500);
       return setEmployees(""), setPin("");
-    } 
-    else {
-        console.log("shes empty");
-        setTrigger(true);
-        setTimeout(() => {
-          setTrigger(false);
-        }, 2500);
-        return setEmployees(""), setPin("");
-      }
+    } else {
+      console.log("shes empty");
+      setErrorTrigger(true);
+      setTimeout(() => {
+        setErrorTrigger(false);
+      }, 2500);
+      return setEmployees(""), setPin("");
+    }
   };
 
   const handleChange = (event) => {
@@ -89,7 +106,7 @@ export function ClockIn() {
         <div className="clock-clock-input">
           <input
             id="clock-clock-input-specific"
-            type="password"
+            type="text"
             placeholder="Enter 4 Digit Pin"
             onChange={handleChange}
             value={pin}
@@ -111,11 +128,11 @@ export function ClockIn() {
             </Link>
           </div>
           <ClockInModal
-            pin={pin}
-            trigger={clockInButtonPopup}
-            setTrigger={setClockInButtonPopup}
+            name={pin}
+            trigger={successTrigger}
+            setTrigger={setSuccessTrigger}
           />
-          <ErrorModal trigger={trigger} setTrigger={setTrigger} />
+          <ErrorModal trigger={errorTrigger} setTrigger={setErrorTrigger} />
         </div>
       </div>
       <div className="admin-path-button">
