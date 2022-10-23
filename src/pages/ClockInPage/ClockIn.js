@@ -9,16 +9,30 @@ import { API, graphqlOperation } from "aws-amplify";
 import Airtable, { Table } from "airtable";
 import { secure } from "../../Secret";
 import { set } from "date-fns";
+import SideButton from "./Modals/SideButton";
 
 export function ClockIn() {
   let [successTrigger, setSuccessTrigger] = useState(false);
   let [pin, setPin] = useState("");
   let [employees, setEmployees] = useState("0");
   let [errorTrigger, setErrorTrigger] = useState(false);
+  let [sideTrigger, setSideTrigger] = useState(false);
 
   let Airtable = require("airtable");
   let base = new Airtable({ apiKey: secure }).base("appqrmdFurNYpsDKm");
   let table = base("Employees");
+
+  const handleChange = (event) => {
+    setPin(event.target.value);
+  };
+
+  function triggerStatement(x) {
+    x(true);
+    setTimeout(() => {
+      x(false);
+    }, 2500);
+    setPin("");
+  }
 
   async function empExists() {
     const records = await base("Employees")
@@ -66,40 +80,37 @@ export function ClockIn() {
     // );
   }
 
+  // function triggerStatement() {
+  //   setErrorTrigger(true);
+  //   setTimeout(() => {
+  //     setErrorTrigger(false);
+  //   }, 2500);
+  //   setPin("");
+  // }
+
   const ClockInFunction = async () => {
-    if ((pin + "").length != 4) {
-      return;
+    if ((pin + "").length > 4 || (pin + "").length < 4) {
+      return triggerStatement(setErrorTrigger);
     }
     const x = await empExists();
-   try {await setEmployees(x["Preferred Name"]);} catch (error) {
-    setErrorTrigger(true);
-    setTimeout(() => {
-      setErrorTrigger(false);
-    }, 2500);
-  }
+    try {
+      await setEmployees(x["Preferred Name"]);
+    } catch (error) {
+      triggerStatement(setErrorTrigger);
+    }
     console.log("employees = ", employees);
     console.log("x is", x);
     if (x != 0) {
-      setSuccessTrigger(true);
-      setTimeout(() => {
-        setSuccessTrigger(false);
-      }, 2500);
+      triggerStatement(setSuccessTrigger);
       return setTimeout(() => {
         setEmployees("");
         setPin("");
       }, 2500);
     } else {
       console.log("shes empty");
-      setErrorTrigger(true);
-      setTimeout(() => {
-        setErrorTrigger(false);
-      }, 2500);
+      triggerStatement(setErrorTrigger);
       return setEmployees(""), setPin("");
     }
-  };
-
-  const handleChange = (event) => {
-    setPin(event.target.value);
   };
 
   return (
@@ -136,6 +147,13 @@ export function ClockIn() {
             setTrigger={setSuccessTrigger}
           />
           <ErrorModal trigger={errorTrigger} setTrigger={setErrorTrigger} />
+          <button
+            id="side-button"
+            onClick={() => triggerStatement(setSideTrigger)}
+          >
+            New MODALLLLLLLLLLLLLLLLLL
+          </button>
+          <SideButton trigger={sideTrigger} setTrigger={setSideTrigger} />
         </div>
       </div>
       <div className="admin-path-button">
