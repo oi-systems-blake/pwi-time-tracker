@@ -62,3 +62,10 @@
     float: right;
     padding-right: 10px;
 }
+
+.search-projects {
+    height: 30px;
+    position: relative;
+    top: 20px;
+    left: 200px;
+}

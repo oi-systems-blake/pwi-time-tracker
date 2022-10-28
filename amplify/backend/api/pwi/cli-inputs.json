@@ -1,13 +1,13 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "pwitimetracker",
+    "apiName": "pwi",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 365,
-      "apiKeyExpirationDate": "2023-10-17T13:20:04.131Z",
-      "keyDescription": "pwitt1api"
+      "apiKeyExpirationDate": "2023-10-26T13:17:44.807Z",
+      "keyDescription": ""
     }
   }
 }

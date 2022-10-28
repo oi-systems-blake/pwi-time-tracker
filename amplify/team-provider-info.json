@@ -1,35 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-pwitimetracker-dev-80148-authRole",
-      "UnauthRoleArn": "arn:aws:iam::162044473277:role/amplify-pwitimetracker-dev-80148-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::162044473277:role/amplify-pwitimetracker-dev-80148-authRole",
+      "AuthRoleName": "amplify-pwi-dev-81639-authRole",
+      "UnauthRoleArn": "arn:aws:iam::162044473277:role/amplify-pwi-dev-81639-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::162044473277:role/amplify-pwi-dev-81639-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-pwitimetracker-dev-80148-deployment",
-      "UnauthRoleName": "amplify-pwitimetracker-dev-80148-unauthRole",
-      "StackName": "amplify-pwitimetracker-dev-80148",
-      "StackId": "arn:aws:cloudformation:us-east-2:162044473277:stack/amplify-pwitimetracker-dev-80148/dd349e10-4e1b-11ed-a55a-022641f03a86",
-      "AmplifyAppId": "d2nj2g3plnxnqg"
+      "DeploymentBucketName": "amplify-pwi-dev-81639-deployment",
+      "UnauthRoleName": "amplify-pwi-dev-81639-unauthRole",
+      "StackName": "amplify-pwi-dev-81639",
+      "StackId": "arn:aws:cloudformation:us-east-2:162044473277:stack/amplify-pwi-dev-81639/6defd9e0-5530-11ed-9201-064159e5a2dc",
+      "AmplifyAppId": "d3p8bnbab2f6e1"
     },
     "categories": {
-      "auth": {
-        "pwitimetracker02e0290e": {},
-        "pwitimetracker": {
-          "userPoolId": "us-east-2_UitX0L9yX",
-          "userPoolName": "tt186ed23dd_userpool_86ed23dd-dev",
-          "webClientId": "6s3v5vv8b20t7stgqh7s869na",
-          "nativeClientId": "6s3v5vv8b20t7stgqh7s869na",
-          "identityPoolId": "us-east-2:41966ccd-3839-4e08-a176-809d65eda83b",
-          "identityPoolName": "tt186ed23dd_identitypool_86ed23dd__dev",
-          "allowUnauthenticatedIdentities": false,
-          "authRoleArn": "arn:aws:iam::162044473277:role/amplify-tt1-dev-92347-authRole",
-          "authRoleName": "amplify-tt1-dev-92347-authRole",
-          "unauthRoleArn": "arn:aws:iam::162044473277:role/amplify-tt1-dev-92347-unauthRole",
-          "unauthRoleName": "amplify-tt1-dev-92347-unauthRole"
-        }
-      },
       "api": {
-        "pwitimetracker": {}
+        "pwi": {}
       }
     }
   }

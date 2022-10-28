@@ -1,6 +1,6 @@
 {
   "api": {
-    "pwitimetracker": {
+    "pwi": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -10,22 +10,13 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2023-10-17T13:20:04.131Z",
-              "description": "pwitt1api"
+              "apiKeyExpirationDate": "2023-10-26T13:17:44.807Z",
+              "description": ""
             }
           },
           "additionalAuthenticationProviders": []
         }
       }
-    }
-  },
-  "auth": {
-    "pwitimetracker": {
-      "service": "Cognito",
-      "serviceType": "imported",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
     }
   }
 }

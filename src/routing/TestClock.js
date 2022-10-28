@@ -1,17 +1,10 @@
 import React from "react";
 import TimeClock from "../pages/ClockInPage/Components/TimeClock";
+import TimeTest from "./TimeTest"
 import { useState } from "react";
-import Fetch from "../airTable/Fetch";
-import EmpQuery from "../graphql/custom/EmpQuery";
 import { API, graphqlOperation } from "aws-amplify";
 
 export default function TestClock() {
-  
-  
-  
-  
-  
-  
   
   const [pin, setPin] = useState("");
   const eventDetails = {
@@ -57,9 +50,7 @@ export default function TestClock() {
     
     
     
-    let x = new Date();
-    let y = x.toLocaleTimeString();
-    console.log("y is ", x);
+  
 
 
 
@@ -67,19 +58,19 @@ export default function TestClock() {
       graphqlOperation(createTimeSheet, { input: eventDetails })
     );
     console.log(newProj);
-    return y;
   }
 
   return (
     <>
-      <EmpQuery />
+
       <div>
         <TimeClock />
-        <Fetch pin={pin} callback={callThisFromChild} />
-        <button onClick={TimeStamp}>clock in</button>
+        <TimeTest/>
+{/*     <Fetch pin={pin} callback={callThisFromChild} />
+    <button onClick={TimeStamp}>clock in</button> 
         <input type="text" value={pin} onChange={handleChange}></input>
 
-        <h1>{pin}</h1>
+        <h1>{pin}</h1>*/}
       </div>
     </>
   );
